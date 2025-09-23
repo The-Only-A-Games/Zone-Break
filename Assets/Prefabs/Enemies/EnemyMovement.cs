@@ -9,27 +9,37 @@ public class EnemyMovement : MonoBehaviour
 
     private NavMeshAgent agent;
     private float distance;
+
+    private bool attackPlayer { get; set; } = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        distance = Vector3.Distance(agent.transform.position, playerTransform.position);
-        if (distance < attackDistance)
+        if (attackPlayer) // Attack player once anomoly affects
         {
-            // Enemy is close enough -> stop moving, attack phase could go here
-            agent.isStopped = true;
+            distance = Vector3.Distance(agent.transform.position, playerTransform.position);
+            if (distance < attackDistance)
+            {
+                agent.isStopped = true;
+            }
+            else
+            {
+                agent.isStopped = false;
+                agent.destination = playerTransform.position;
+                transform.LookAt(playerTransform.position, Vector3.up);
+            }
         }
-        else
-        {
-            // Enemy is too far -> keep moving toward the player
-            agent.isStopped = false;
-            agent.destination = playerTransform.position;
-            transform.LookAt(playerTransform.position, Vector3.up);
-        }
+    }
+
+
+    public void OnAttackPlayer()
+    {
+        attackPlayer = true;
     }
 }
