@@ -35,9 +35,23 @@ public class MoveProjectile : MonoBehaviour
             var enemy = other.GetComponent<EnemyHitDetection>();
 
             if (enemy != null) enemy.OnHit();
-            Debug.Log(enemy);
+
+        }
+
+        else if (other.CompareTag("Crystal"))
+        {
+            Debug.Log(other.name);
+
+            var cystal = other.GetComponent<Cystal>();
+
+            if (cystal != null) cystal.OnHit();
+        }
+
+        if (!other.CompareTag("Zone"))
+        {
             Destroy(gameObject);
         }
+
     }
 
 }
