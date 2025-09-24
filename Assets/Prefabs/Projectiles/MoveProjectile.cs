@@ -36,18 +36,15 @@ public class MoveProjectile : MonoBehaviour
 
             if (enemy != null) enemy.OnHit();
 
+            Destroy(gameObject);
         }
 
-        else if (other.CompareTag("Crystal"))
+        else if (other.CompareTag("Player") && other.CompareTag("Zone"))
         {
-            Debug.Log(other.name);
-
-            var cystal = other.GetComponent<Cystal>();
-
-            if (cystal != null) cystal.OnHit();
+            Debug.Log("Why are you hitting youself");
         }
 
-        if (!other.CompareTag("Zone"))
+        else
         {
             Destroy(gameObject);
         }

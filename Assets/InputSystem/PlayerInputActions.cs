@@ -7,6 +7,7 @@ public class PlayerInputActions : MonoBehaviour, InputSystem.IPlayerActions
     public Vector2 Move { get; private set; }
     public bool Jump { get; private set; }
     public bool Shoot { get; private set; }
+    public bool PowerUp { get; private set; }
 
     void OnEnable()
     {
@@ -43,5 +44,14 @@ public class PlayerInputActions : MonoBehaviour, InputSystem.IPlayerActions
         {
             Shoot = false;
         }
+    }
+
+    public void OnPowerUp(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            PowerUp = true;
+        }
+        else PowerUp = false;
     }
 }

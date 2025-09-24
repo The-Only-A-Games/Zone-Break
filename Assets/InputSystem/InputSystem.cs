@@ -53,6 +53,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PowerUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d209231-41d5-45cb-9619-365e06826939"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0dbdcd2-4104-4447-9cdd-62dbdd93a966"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_PowerUp = m_Player.FindAction("PowerUp", throwIfNotFound: true);
     }
 
     ~@InputSystem()
@@ -212,6 +233,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_PowerUp;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
@@ -219,6 +241,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @PowerUp => m_Wrapper.m_Player_PowerUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -237,6 +260,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @PowerUp.started += instance.OnPowerUp;
+            @PowerUp.performed += instance.OnPowerUp;
+            @PowerUp.canceled += instance.OnPowerUp;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -250,6 +276,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @PowerUp.started -= instance.OnPowerUp;
+            @PowerUp.performed -= instance.OnPowerUp;
+            @PowerUp.canceled -= instance.OnPowerUp;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -272,5 +301,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnPowerUp(InputAction.CallbackContext context);
     }
 }
