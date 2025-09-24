@@ -30,8 +30,6 @@ public class MoveProjectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log(other.name);
-
             var enemy = other.GetComponent<EnemyHitDetection>();
 
             if (enemy != null) enemy.OnHit();
@@ -39,7 +37,7 @@ public class MoveProjectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-        else if (other.CompareTag("Player") && other.CompareTag("Zone"))
+        else if (other.CompareTag("Player") || other.CompareTag("Zone"))
         {
             Debug.Log("Why are you hitting youself");
         }
