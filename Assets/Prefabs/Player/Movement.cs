@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public PlayerInputActions controls;
     public Camera mainCam;
     public LayerMask groundLayer;
+    public Animator animator;
 
 
 
@@ -50,6 +51,11 @@ public class Movement : MonoBehaviour
         }
 
         ch.Move(move_direction * speed * Time.deltaTime);
+
+        // 🔹 Animation hook
+        Vector3 flatVelocity = new Vector3(ch.velocity.x, 0, ch.velocity.z); // ignore vertical
+        float currentSpeed = flatVelocity.magnitude; // how fast the player is moving
+        animator.SetFloat("speed", currentSpeed); // send value to Animator
 
     }
 
