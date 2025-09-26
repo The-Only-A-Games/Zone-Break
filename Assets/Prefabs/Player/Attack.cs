@@ -31,7 +31,7 @@ public class Attack : MonoBehaviour
             {
                 if (muzzelTransform != null)
                 {
-                    Instantiate(bullet, muzzelTransform.position, muzzelTransform.rotation);
+                    Instantiate(bullet, muzzelTransform.position, muzzelTransform.rotation, null);
                     lastTimeShot = Time.time;
                 }
             }

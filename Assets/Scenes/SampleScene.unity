@@ -743,7 +743,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.471858, y: -0.0000000015645382, z: 8.3731555e-10, w: 0.8816746}
+  m_LocalRotation: {x: 0.471858, y: 0.0000000017931858, z: -9.596841e-10, w: 0.8816746}
   m_LocalPosition: {x: -43.4, y: 16.04, z: -30.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2186,7 +2186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cf5446078402942bf7121b35f6a2ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 5126796107050430522, guid: 444dcec9aeab4654b8bf2b0d449f8379, type: 3}
+  objectToSpawn: {fileID: 4956841654479396484, guid: 1d3f78dddd022954b9e8466cc42dd43f, type: 3}
   spawnRange: 8
   enemyPrefab: {fileID: 0}
   spawnRadius: 20
@@ -2324,8 +2324,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938868285}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47185796, y: -0.0000000015645379, z: 8.373152e-10, w: 0.8816746}
-  m_LocalPosition: {x: 0, y: 15, z: -10}
+  m_LocalRotation: {x: 0.47185796, y: 0.0000000017931854, z: -9.596837e-10, w: 0.88167465}
+  m_LocalPosition: {x: 0, y: 15.000001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -5,6 +5,7 @@ public class Movement : MonoBehaviour
     public float speed = 15f;
     public float jump = 5f;
     public float gravity = 9.81f;
+    public float rotationSpeed = 10f;
 
 
     public CharacterController ch;
@@ -29,7 +30,8 @@ public class Movement : MonoBehaviour
 
 
         Vector2 input = new(controls.Move.x, controls.Move.y);
-        Vector3 move_direction = transform.forward * input.y + transform.right * input.x;
+        Vector3 move_direction = new(input.x, 0f, input.y);
+        // transform.forward* input.y + transform.right * input.x
 
         if (!ch.isGrounded)
         {
@@ -42,7 +44,7 @@ public class Movement : MonoBehaviour
         // }
 
         Vector3 lookTarget = LookTowardCusor();
-        if (lookTarget != Vector3.zero) // Only move if raycast collided with something
+        if (lookTarget != Vector3.zero && controls.Shoot) // Only move if raycast collided with something
         {
             Vector3 lookDir = (lookTarget - transform.position);
             lookDir.y = 0; // ignore vertical
@@ -52,10 +54,20 @@ public class Movement : MonoBehaviour
 
         ch.Move(move_direction * speed * Time.deltaTime);
 
-        // 🔹 Animation hook
+
         Vector3 flatVelocity = new Vector3(ch.velocity.x, 0, ch.velocity.z); // ignore vertical
         float currentSpeed = flatVelocity.magnitude; // how fast the player is moving
         animator.SetFloat("speed", currentSpeed); // send value to Animator
+
+        move_direction.y = 0;
+        if (move_direction.sqrMagnitude > 0.01f && !controls.Shoot)
+        {
+            // Smooth rotation toward movement direction
+            Quaternion targetRotation = Quaternion.LookRotation(move_direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        ch.Move(move_direction * speed * Time.deltaTime);
 
     }
 
