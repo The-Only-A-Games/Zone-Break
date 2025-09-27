@@ -9,6 +9,7 @@ public class Attack : MonoBehaviour
 
     public GameObject anomolyZone;
     public Transform anomolyTransform;
+    public Movement movement;
 
 
     public float fireRate = 0.25f;
@@ -18,7 +19,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         controls = GetComponent<PlayerInputActions>();
-        // muzzelTransform = FindAnyObjectByType<Muzzel>()
+        movement = GetComponent<Movement>();
     }
 
     // Update is called once per frame
@@ -31,7 +32,15 @@ public class Attack : MonoBehaviour
             {
                 if (muzzelTransform != null)
                 {
-                    Instantiate(bullet, muzzelTransform.position, muzzelTransform.rotation, null);
+                    // Return a raycast hit.point for the direction the player is
+                    // I want to use this movement.MousePosDir to make the bullet travell in the direction of the curso
+                    Vector3 dir = movement.MousePosDir; // hit.point
+                    dir.y = 0;
+                    GameObject b = Instantiate(bullet, muzzelTransform.position, Quaternion.identity);
+                    b.transform.forward = dir;
+                    b.GetComponent<MoveProjectile>().Fire(dir);
+
+
                     lastTimeShot = Time.time;
                 }
             }

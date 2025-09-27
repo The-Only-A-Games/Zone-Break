@@ -7,12 +7,15 @@ public class Movement : MonoBehaviour
     public float gravity = 9.81f;
     public float rotationSpeed = 10f;
 
+    public Vector3 MousePosDir { get; private set; }
+
 
     public CharacterController ch;
     public PlayerInputActions controls;
     public Camera mainCam;
     public LayerMask groundLayer;
     public Animator animator;
+    public Transform muzzelTransform;
 
 
 
@@ -22,6 +25,7 @@ public class Movement : MonoBehaviour
         ch = GetComponent<CharacterController>();
         controls = GetComponent<PlayerInputActions>();
         mainCam = FindFirstObjectByType<Camera>();
+        // muzzelTransform = FindFirstObjectByType<Muz>
     }
 
     // Update is called once per frame
@@ -31,19 +35,16 @@ public class Movement : MonoBehaviour
 
         Vector2 input = new(controls.Move.x, controls.Move.y);
         Vector3 move_direction = new(input.x, 0f, input.y);
-        // transform.forward* input.y + transform.right * input.x
 
         if (!ch.isGrounded)
         {
             move_direction.y -= gravity * Time.deltaTime;
         }
 
-        // if (controls.Jump && ch.isGrounded)
-        // {
-        //     move_direction.y = jump;
-        // }
+
 
         Vector3 lookTarget = LookTowardCusor();
+        MousePosDir = (lookTarget - muzzelTransform.position).normalized;
         if (lookTarget != Vector3.zero && controls.Shoot) // Only move if raycast collided with something
         {
             Vector3 lookDir = (lookTarget - transform.position);

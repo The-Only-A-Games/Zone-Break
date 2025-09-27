@@ -9,10 +9,15 @@ public class MoveProjectile : MonoBehaviour
 
     public Rigidbody rb;
 
+    public void Fire(Vector3 dir)
+    {
+        rb.linearVelocity = dir.normalized * speed;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.linearVelocity = transform.forward * speed;
+        // rb.linearVelocity = transform.forward * speed;
     }
 
 

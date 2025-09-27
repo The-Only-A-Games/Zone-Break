@@ -12,10 +12,13 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     private float distance;
 
+
+
     private bool attackPlayer { get; set; } = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         agent = GetComponent<NavMeshAgent>();
         captureSpeed = speed;
     }
@@ -52,5 +55,38 @@ public class EnemyMovement : MonoBehaviour
     public void RevertSpeed()
     {
         speed = captureSpeed;
+    }
+
+
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     Debug.Log(collision.collider.name);
+    //     if (collision.collider.tag == "Player")
+    //     {
+    //         var player = collision.collider.GetComponent<PlayerHealth>();
+    //         Debug.Log("Found Player");
+    //         Debug.Log(player);
+
+    //         if (player != null)
+    //         {
+    //             player.OnDamage(1);
+    //         }
+    //     }
+    // }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            var player = other.GetComponent<PlayerHealth>();
+            Debug.Log("Found Player");
+            Debug.Log(player);
+
+            if (player != null)
+            {
+                player.OnDamage(1);
+            }
+        }
     }
 }
